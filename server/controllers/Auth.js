@@ -8,8 +8,8 @@ const { passwordUpdated } = require("../mail/templates/passwordUpdate")
 const Profile = require("../models/Profile")
 require("dotenv").config()
 
-// Signup Controller for Registering USers
 
+// Signup Controller for Registering USers
 exports.signup = async (req, res) => {
   try {
     // Destructure fields from the request body
@@ -57,7 +57,7 @@ exports.signup = async (req, res) => {
 
     // Find the most recent OTP for the email
     const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1)
-    console.log(response)
+    console.log("Ye response ka data hai dekh lo tum"+ response)
     if (response.length === 0) {
       // OTP not found for the email
       return res.status(400).json({

@@ -94,7 +94,10 @@ exports.getAverageRating = async (req, res) => {
     }
 
     // If no ratings are found, return 0 as the default rating
-    return res.status(200).json({ success: true, averageRating: 0 })
+    return res.status(200).json({ 
+      success: true, 
+      averageRating: 0 
+    })
   } catch (error) {
     console.error(error)
     return res.status(500).json({

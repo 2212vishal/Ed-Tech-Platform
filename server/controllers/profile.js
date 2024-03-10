@@ -43,7 +43,7 @@ exports.updateProfile = async (req, res) => {
       .populate("additionalDetails")
       .exec()
 
-    return res.json({
+    return res.status(200).json({
       success: true,
       message: "Profile updated successfully",
       updatedUserDetails,
@@ -86,7 +86,8 @@ exports.deleteAccount = async (req, res) => {
       message: "User deleted successfully",
     })
     await CourseProgress.deleteMany({ userId: id })
-  } catch (error) {
+  } 
+  catch (error) {
     console.log(error)
     res
       .status(500)
@@ -106,7 +107,8 @@ exports.getAllUserDetails = async (req, res) => {
       message: "User Data fetched successfully",
       data: userDetails,
     })
-  } catch (error) {
+  } 
+  catch (error) {
     return res.status(500).json({
       success: false,
       message: error.message,
@@ -130,7 +132,7 @@ exports.updateDisplayPicture = async (req, res) => {
       { image: image.secure_url },
       { new: true }
     )
-    res.send({
+    res.status(200).send({
       success: true,
       message: `Image Updated successfully`,
       data: updatedProfile,
@@ -165,9 +167,8 @@ exports.getEnrolledCourses = async (req, res) => {
       let totalDurationInSeconds = 0
       SubsectionLength = 0
       for (var j = 0; j < userDetails.courses[i].courseContent.length; j++) {
-        totalDurationInSeconds += userDetails.courses[i].courseContent[
-          j
-        ].subSection.reduce((acc, curr) => acc + parseInt(curr.timeDuration), 0)
+        totalDurationInSeconds += userDetails.courses[i].courseContent[j]
+        .subSection.reduce((acc, curr) => acc + parseInt(curr.timeDuration), 0)
         userDetails.courses[i].totalDuration = convertSecondsToDuration(
           totalDurationInSeconds
         )
